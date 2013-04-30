@@ -1,0 +1,117 @@
+@import "compass/css3/user-interface";
+@import "compass/css3/transition";
+@import "compass/css3/transform";
+@import "branding";
+@import "detail";
+@import "filter";
+
+.gmap {
+    img {
+        /** Fix Bootstrap incompatibility with Google maps */
+        max-width: none;
+    }
+}
+
+.map-info {
+    overflow: auto;
+    height: 100%;
+}
+
+.spacelist {
+    background-color: lighten($bgColor, 8%);
+    overflow: auto;
+    margin-left: 0;
+
+    // Workaround for a Chrome bug (remove if fixed)
+    float: none !important;
+    position: absolute;
+    right: 0;
+}
+
+// also part of the workaround
+.content {
+    position: relative;
+}
+
+.spacelist-item {
+    &:hover {
+        background-color: lighten($bgColor, 5%);
+    }
+
+    &.selected {
+        background-color: desaturate(tint($highlightColor, 60%), 20%);
+    }
+
+    div, span {
+        white-space: nowrap;
+        overflow: hidden;
+        -o-text-overflow: ellipsis;
+        -ms-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
+    }
+
+    .space-type {
+        color: lighten($textColor, 30%);
+    }
+
+    .space-name {
+        color: $textColor;
+        font-size: 17px;
+    }
+
+    .space-location {
+        color: $textColor;
+    }
+
+    .space-image {
+        max-height: 60px;
+        max-width: auto;
+        float: left;
+        margin-right: 15px;
+    }
+
+    box-sizing: border-box;
+    height: 80px;
+    padding: 10px;
+    border-bottom: 1px solid #CCCCCC;
+    @include transition(background-color 0.1s ease);
+}
+
+.content > * {
+    height: 400px;
+}
+
+.content > .details {
+    &.ui-show {
+        visibility: visible;
+        opacity: 1;
+        @include transform(translateX(0));
+    }
+
+    .close {
+        position: absolute;
+        top: 25px;
+        right: 40px;
+        z-index: 99999;
+    }
+
+    box-sizing: border-box;
+
+    @include transition(visibility 0.5s ease, opacity 0.5s ease, transform 0.5s ease);
+    @include transform(translateX(20px));
+    visibility: hidden;
+    opacity: 0;
+
+    margin-left: 0;
+    padding: 20px;
+    position: absolute;
+}
+
+.valid {
+    color: #6d0;
+}
+
+.error {
+    color: #f66;
+}

@@ -1,0 +1,43 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>jQuery UI Autocomplete - Categories</title>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css" />
+
+    <script>
+        $(function() {
+            $( "#search" ).autocomplete({
+                source: function(request, response){
+                    $.ajax({
+                        url: "dump.php",
+                        type: "POST",
+                        data: {
+                            name_startsWith: request.term
+                        },
+                        success:function(data){
+                            var json = JSON.stringify(eval("(" + data + ")"));
+                            var obj = JSON.parse(json);
+                            response($.map(obj, function(item){
+                                return {
+                                    label: item.dish_name + ", " + item.restaurant + ", " + item.dish_price,
+                                    value: item.dish_name
+                                }
+                            }))
+                        }
+                    })
+                }
+            })
+        });
+    </script>
+</head>
+<body>
+
+<label for="search">Search: </label>
+<input id="search" />
+
+
+</body>
+</html>
